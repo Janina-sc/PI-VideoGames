@@ -22,7 +22,7 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use('/', routes);
+server.use('/', routes); //Las request van al Servidor y de ahí las redirige al Index de las Routes
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

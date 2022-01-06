@@ -5,10 +5,11 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('genre', {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),//ver: había puesto STRING
       allowNull: false,
+     
     },
-    // id:{
+    // id:{ no hace falta, se genera solito
     //   type: DataTypes.UUID,
     //   defaultValue: DataTypes.UUIDV4,
     //   allowNull:false,
