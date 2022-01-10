@@ -16,14 +16,14 @@ module.exports = (sequelize) => {
       unique:true,
     },
     
-      slug:{
-        type:DataTypes.STRING,
-        allowNull:false,
+      description:{
+        type:DataTypes.TEXT,
+        
         
       },
       image:{
-        type:DataTypes.STRING,
-       allowNull:false,
+        type:DataTypes.TEXT,
+      //  allowNull:false,
       },
       released:{
         type:DataTypes.STRING,
@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
         type:DataTypes.DECIMAL,
       },
       platforms:{
-        type:DataTypes.ARRAY(DataTypes.JSON), //ver: había puesto JSON
+        type:DataTypes.ARRAY(DataTypes.JSON), //ver: había puesto JSON después string
         allowNull:false,
       },
       createdInDb:{

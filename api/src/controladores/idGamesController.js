@@ -1,20 +1,53 @@
-require('dotenv').config();
-const axios =require("axios");
-const {API_KEY}=process.env;
-const {Genre, Videogame} = require("../db");
+// require('dotenv').config();
+// const axios =require("axios");
+// const Genre = require('../models/Genre');
+// const Videogame = require('../models/Videogame');
+// const {API_KEY}=process.env;
+// const {Genre, Videogame} = require("../db");
+// //const {getAllData} = require("./videogameController")
 
 
-const idGame=async(req, res)=>{
-    // try {
-    //     const getGameId=await axios.get(`https://api.rawg.io/api/games/{id}?key={API_KEY}`, {limit:100})
-    //         return idGame.data
-    //     }catch(error){
-    //         console.log(error)
-    //     }
-    }
+// const idGame=async(req, res, next)=>{
+//     const id= req.params.id;
+//     if(typeof id ===Number){
+//     try {
+//         const gameId= await axios.get(`https://api.rawg.io/api/games/{id}?key=1f144ad916834d1580997d3ba6108378`);
+//         const gameData= await gameId.data;
+//         if(gameData){
+//             const {name, background_image, genres, description, realeased, rating, platforms}= gameData
+//             const gameDetails={name, background_image, genres, description, realeased, rating, platforms}
+//             return gameDetails;
+//         }
+//         }catch (error){
+//            return next(error)
+        
+//         }
+//     } else {
+//         try {
+//             if(typeof id ===String){
+//                 const gameCreated= await Videogame.findbyPk({
+                    
+//                     include:{
+//                         model: Genre,
+//                         attributes:["id"],
+//                         through:{
+//                             attributes:[],
+//                         }
+                        
+//                     }
+//                 })
+//                 return gameCreated
+//             }
+//         } catch (error) {
+//             next(error)
+//         }
+       
+//     }
+// }
     
-    module.exports={
-        idGame
-    }
+    
+//     module.exports={
+//         idGame
+//     }
         
     

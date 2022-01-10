@@ -1,8 +1,8 @@
-const express = require ("express");
-const router = express.Router();
-const {idGame} = require("../controladores/idGamesController.js")
+// const express = require ("express");
+// const router = express.Router();
+// const {idGame} = require("../controladores/idGamesController.js")
 
 
-router.get("/idVideogame", idGame)
+// router.get("/videogame/:id", idGame)
 
-module.exports= router;
+// module.exports= router;

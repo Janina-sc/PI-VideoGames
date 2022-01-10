@@ -1,5 +1,5 @@
 require('dotenv').config();
-const axios =require("axios");
+//const axios =require("axios");
 const {API_KEY}=process.env;
 const {Genre, Videogame} = require("../db");
 
@@ -7,20 +7,30 @@ const {Genre, Videogame} = require("../db");
 const createGame= async(req, res, next)=>{
    
    
-        const  { name, slug, released, rating, genres, platforms, createdInDb} = req.body;
+        const  { name, description, released, rating, genre, platforms, createdInDb} = req.body;
         
-            // if(createdGame){ validar ésto de alguna forma
+             if(gameCreated){ 
             try {
-                 //Videogame.create().then(response=>res.send(response)) con Promesas
-        return createGame
+                const gameCreated= await Videogame.create({
+                    name, description, released, rating, platforms, createdInDb
+                })
+
+                 const genresDb= await Genre.findAll({ //la busca en el modelo Genre
+                     where:{
+                         name: genre
+                     }
+                 })
+                 gameCreated.addGenre(genresDb)
+                 res.send("Videogame successfully created")
+        
     } catch (error) {
-        next ( error)
+        return next ( error)
     }
 }   
-    // else{
-    //     res.send("Sin datos suficientes")
-    // }
-//}
+    else{
+        res.send("Videogame not created")
+    }
+}
 
 //Promesas
 // const createGame= (req, res, next)=>{ no se necesita el async
