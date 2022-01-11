@@ -18,21 +18,24 @@ module.exports = (sequelize) => {
     
       description:{
         type:DataTypes.TEXT,
+        allowNull:false,
         
         
       },
       image:{
         type:DataTypes.TEXT,
-      //  allowNull:false,
+        //allowNull:false,
       },
       released:{
         type:DataTypes.STRING,
+        allowNull:false,
       },
       rating:{
         type:DataTypes.DECIMAL,
+        allowNull:false,
       },
       platforms:{
-        type:DataTypes.ARRAY(DataTypes.JSON), //ver: había puesto JSON después string
+        type:DataTypes.ARRAY(DataTypes.TEXT), //ver: había puesto JSON después string
         allowNull:false,
       },
       createdInDb:{

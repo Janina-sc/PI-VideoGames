@@ -3,8 +3,9 @@ require("dotenv").config()
 //const videogames = require("./RouteVideogame.js");
 //const genres = require("./RouteGenre.js");
 const axios = require("axios");
-const {API_KEY}=process.env;
+const { API_KEY } = process.env;
 const {Genre, Videogame} = require("../db");
+
 // const idVideogame= require("./RouteId.js");
 // const createGame = require("./RouteCreate.js");
 // Importar todos los routers;
@@ -32,14 +33,14 @@ const getApiData=async()=>{
         .then(responses => {
             responses.forEach(responses => apiGames.push(
                 responses.data.results?.map(game => {
-                    const { name, background_image, genres, id, platforms, rating } = game;
+                    const { name, background_image, genres,  } = game;
                     return {
                         name,
                         background_image,
-                        platforms: platforms.map(game => game.platform.name),
+                        //platforms: platforms.map(game => game.platform.name),
                         genres: genres.map(game => game.name),
-                        rating,
-                        id,
+                        // rating,
+                        // id,
                     }
                 })
 
@@ -47,6 +48,7 @@ const getApiData=async()=>{
         })
 
     return apiGames.flat();
+    
 };
 const getdbInfo = async () => {
     return await Videogame.findAll({
@@ -63,93 +65,196 @@ const getdbInfo = async () => {
     
 
 const getAllGames = async () => {
-    const apiG = await getApiData();
+    const apiGames = await getApiData();
     const dbInfo = await getdbInfo();
-    const allData = apiG.concat(dbInfo);
+    const allData = apiGames.concat(dbInfo);
     return allData;
-};
-//         //apiInfo=[];
-//     const videogamesApi = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378, {limit=100}`);
-//     // videogamesApi.data.results.forEach(elem=>{
-//     //     //console.log(videogamesApi)
-//     //     apiInfo.push(elem)
-//     // })
-//    const apiDataMaped= await videogamesApi.data.results?.map(elem=>{
-//     return {
-//         name:elem.name,
-//         image:elem.background_image,
-//         genres:elem.genres?.map(genre=>genre.name),
-//         platforms:elem.platforms.map(platform=>platform.name),
-//         rating:elem.rating,
-//         id:elem.id
-//         }
-//     })     
-//     return apiDataMaped;
-// };    
-    
-    
-    
-//     const getdDbData = async()=>{
-//         return await Videogame.findAll({
-//             include:{
-//                 model: Genre,
-//                 attributes:["name"],
-//                 through:{//es una comprobación que se hace cuando se traen los atributos
-//                attributes:[],
-//             }
-//         }
-//     })
-// }
+};         
 
-// const getAllData = async()=>{
-//     const apiData = await getApiData();
-//     const dbData = await getdDbData();
-//     if(!dbData){ //comprobación: sin no hay nada en DB
-//         res.send(apiDataMaped)
-//     } else {
-//     const allData= apiData.concat(dbData);
-//     return allData;
-//     }
-// }
+router.get("/videogames", async (req, res, next) =>{
 
-
-
-
-  router.get("/videogames", async (req, res, next) =>{
-    const name = req.query.name;//el query se pasa por url ?name=xxx
-    try{
-    const allGames=  await getAllGames();
-    if(name){
-        const game=  allGames.filter(elem=>{
-            elem.name.toLowerCase().includes(name.toLowerCase())
-        })
-    
-        game.length?
-        res.status(200).send(game):
-        res.status(404).send("Game not found")
-        } else{
-          
-            res.status(200).send(allGames)
-        }
-    }catch(error){
-        return next(error)
+    const { name } = req.query; 
+    try {
+    let allGames = await getAllGames();
+    if (name) {
+      let dataGame = allGames.filter((elem) => 
+        elem.name.toLowerCase().includes(name.toLowerCase()));
+      if (dataGame.length >= 1) return res.status(200).send(dataGame.slice(0,16)) 
+      res.status(404).send("Game not found")
+    } else {
+      let allGames2 = await getAllGames()
+      res.status(200).json(allGames2)
+    }
+    } catch (error) {
+      return next(error); 
     }
     });
+     
+
+    router.get("/videogame/:id", async(req, res, next)=>{
+    
+            const id= req.params.id;
+            if (typeof id !== "string") id.toString();
+
+            try {
+              if (id.includes("-")) {
+                const gamesDb = await Videogame.findOne({
+                  where: { id: id },
+                  include: [Genre],
+                });
+          
+                return res.json(gamesDB);
+          
+              } else {
+                const getGamesApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=1f144ad916834d1580997d3ba6108378`);
+                const apiGames = await getGamesApi.data
+                if (apiGames.name) {
+                  const { name, background_image, genres, description, released, rating, platforms } = apiGames
+                  const gameDetails = {
+                    name,
+                    description:description.replace( /(<([^>]+)>)/ig, ''),
+                    released,
+                    background_image,
+                    rating,
+                    platforms: platforms.map(game => game.platform.name),
+                    genres: genres.map(game => game.name),
+                  }
+                  res.status(200).json(gameDetails);
+                }
+              }
+            } catch (err) {
+              res.status(404).json("Game ID not found");
+            }
+          });
+          
 
 
 
 
+            // if(typeof id ===Number){
+            // try {
+            //     const gameId= await axios.get(`https://api.rawg.io/api/games/{id}?key=1f144ad916834d1580997d3ba6108378`);
+            //     const gameData= await gameId.data;
+            //     if(gameData){
+            //         const {name, background_image, genres, description, realeased, rating, platforms}= gameData
+            //         const gameDetails={name, background_image, genres, description, realeased, rating, platforms}
+            //         return gameDetails;
+            //     }
+            //     }catch (error){
+            //        return next(error)
+                
+            //     }
+            // } else {
+            //     try{
+            //         if(typeof id !==Number){
+            //             const gameCreated= await Videogame.findOne({
+                            
+            //                 include:{
+            //                     model: Genre,
+            //                     attributes:["id"],
+            //                     through:{
+            //                         attributes:[],
+            //                     }
+                                
+            //                 }
+            //             })
+            //             return gameCreated
+            //         }
+            //     } catch (error) {
+            //         next(error)
+            //     } 
+            // }    
+            // });
+        
 
+    router.get("/genres", async(req, res, next)=>{
+        try {
+            await axios.get(` https://api.rawg.io/api/genres?key=1f144ad916834d1580997d3ba6108378`)
+              .then((response) => {
+        
+                const genre = response.data.results;
+                //console.log(genre)
+                const genres = genre?.map((elem) => elem.name);
+                //console.log(genres)
+                genres.forEach( (elem) => {
+                   Genre.bulkCreate({
+                    where: {
+                      name:elem,
+                    
+                    }
+                
+                   })
+                  return Genre.findAll({
+                      attributes:["name"]
+                  });
+                })
+                return res.status(200).send(genres)
+        
+              })
+          } catch (error) {
+            return next(error)
+          }
+        })
+    
 
+        router.post("/videogame", async(req, res, next)=>{
+            try {
+        const  { name, description, released, rating, genre, platforms, createdInDb} = req.body;
+        const gameCreated= await Videogame.create({
+        name,
+        description, 
+        released, 
+        rating,
+        platforms, 
+        createdInDb
+        })
+         
+        const genresDb= await Genre.findAll({ //la busca en el modelo Genre
+        where:{
+            name: genre
+             }
+        })
+        gameCreated.addGenre(genresDb)
+        res.send("Videogame successfully created")
+                 
+       } catch (error) {
+        return next ( error)
+             }
+         }) 
+        
+             
+         
+         
+         // //Promesas
+         // // const createGame= (req, res, next)=>{ no se necesita el async
+            
+            
+         // //     const  newGame = req.body;
+             
+         // //          if(newGame){ // validar ésto de alguna forma
+         // //         try {
+         // //              Videogame.create(newGame).then(response=>res.send(response)) 
+             
+         // // } catch (error) {
+         // //     next ( error)
+         // // }
+         // // }   
+         // // else{
+         // //     res.send("Sin datos suficientes")
+         // // }
+         // // }
+         
+
+        
+    
+
+    
 
 
     
 
 
-
-
-
-module.exports= router;
+  module.exports= router;
 
 
 
