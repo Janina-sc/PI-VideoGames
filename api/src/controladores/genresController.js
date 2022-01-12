@@ -25,8 +25,8 @@
 //         })
         
 //             return res.status(200).send(genresMaped)
-//     } catch (error) {
-//         return next ( error)
+//     } catch (err) {
+//         return next ( err)
         
 //     }
 

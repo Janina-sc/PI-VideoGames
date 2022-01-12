@@ -1,56 +1,53 @@
-require('dotenv').config();
-//const axios =require("axios");
-const {API_KEY}=process.env;
-const {Genre, Videogame} = require("../db");
+// require('dotenv').config();
+// const axios =require("axios");
+// const {API_KEY}=process.env;
+// const {Genre, Videogame} = require("../db");
 
 
-const createGame= async(req, res, next)=>{
+// router.post("/videogame", async(req, res, next)=>{
    
-   
-        const  { name, description, released, rating, genre, platforms, createdInDb} = req.body;
+//    const  { name, description, released, rating, genre, platforms, createdInDb} = req.body;
         
-             if(gameCreated){ 
-            try {
-                const gameCreated= await Videogame.create({
-                    name, description, released, rating, platforms, createdInDb
-                })
+             
+//             try {
+//                 const gameCreated= await Videogame.create({
+//                     name, description, released, rating, platforms, createdInDb
+//                 })
 
-                 const genresDb= await Genre.findAll({ //la busca en el modelo Genre
-                     where:{
-                         name: genre
-                     }
-                 })
-                 gameCreated.addGenre(genresDb)
-                 res.send("Videogame successfully created")
+//                  const genresDb= await Genre.findAll({ //la busca en el modelo Genre
+//                      where:{
+//                          name: genre
+//                      }
+//                  })
+//                  gameCreated.addGenre(genresDb)
+//                  res.send("Videogame successfully created")
         
-    } catch (error) {
-        return next ( error)
-    }
-}   
-    else{
-        res.send("Videogame not created")
-    }
-}
+//     } catch (err) {
+//         return next ( err)
+//     }
+// }) 
+    
 
-//Promesas
-// const createGame= (req, res, next)=>{ no se necesita el async
+
+// //Promesas
+// // const createGame= (req, res, next)=>{ no se necesita el async
    
    
-//     const  newGame = req.body;
+// //     const  newGame = req.body;
     
-//          if(newGame){ // validar ésto de alguna forma
-//         try {
-//              Videogame.create(newGame).then(response=>res.send(response)) 
+// //          if(newGame){ // validar ésto de alguna forma
+// //         try {
+// //              Videogame.create(newGame).then(response=>res.send(response)) 
     
-// } catch (error) {
-//     next ( error)
-// }
-// }   
-// else{
-//     res.send("Sin datos suficientes")
-// }
-// }
+// // } catch (err) {
+// //     next ( err)
+// // }
+// // }   
+// // else{
+// //     res.send("Sin datos suficientes")
+// // }
+// // }
 
-module.exports={
-    createGame
-}
+// module.exports={
+//     createGame
+// })

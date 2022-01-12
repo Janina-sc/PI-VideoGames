@@ -10,8 +10,8 @@ const server = express();
 
 server.name = 'API';
 
-server.use(express.urlencoded({ extended: true, limit: '50mb' }));
-server.use(express.json({ limit: '50mb' }));
+server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use((req, res, next) => {
@@ -24,11 +24,11 @@ server.use((req, res, next) => {
 
 server.use('/', routes); //Las request van al Servidor y de ahí las redirige al Index de las Routes
 
-// Error catching endware.
+// Err catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
-  console.error(err);
+  console.err(err);
   res.status(status).send(message);
 });
 

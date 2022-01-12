@@ -4,7 +4,7 @@ require("dotenv").config()
 //const genres = require("./RouteGenre.js");
 const axios = require("axios");
 const { API_KEY } = process.env;
-const {Genre, Videogame} = require("../db");
+const {Genre, Videogame, video_genre} = require("../db");
 
 // const idVideogame= require("./RouteId.js");
 // const createGame = require("./RouteCreate.js");
@@ -18,7 +18,6 @@ const router = Router(); //inicializa el router, sirve para manejar las rutas, r
 // Ejemplo: router.use('/auth', authRouter);
 
 const getApiData=async()=>{
-
 
     const apiUrl1 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
     const apiUrl2 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
@@ -85,8 +84,8 @@ router.get("/videogames", async (req, res, next) =>{
       let allGames2 = await getAllGames()
       res.status(200).json(allGames2)
     }
-    } catch (error) {
-      return next(error); 
+    } catch (err) {
+      return next(err); 
     }
     });
      
@@ -103,7 +102,7 @@ router.get("/videogames", async (req, res, next) =>{
                   include: [Genre],
                 });
           
-                return res.json(gamesDB);
+                return res.json(gamesDb);
           
               } else {
                 const getGamesApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=1f144ad916834d1580997d3ba6108378`);
@@ -140,8 +139,8 @@ router.get("/videogames", async (req, res, next) =>{
             //         const gameDetails={name, background_image, genres, description, realeased, rating, platforms}
             //         return gameDetails;
             //     }
-            //     }catch (error){
-            //        return next(error)
+            //     }catch (err){
+            //        return next(err)
                 
             //     }
             // } else {
@@ -160,8 +159,8 @@ router.get("/videogames", async (req, res, next) =>{
             //             })
             //             return gameCreated
             //         }
-            //     } catch (error) {
-            //         next(error)
+            //     } catch (err) {
+            //         next(err)
             //     } 
             // }    
             // });
@@ -172,11 +171,12 @@ router.get("/videogames", async (req, res, next) =>{
             await axios.get(` https://api.rawg.io/api/genres?key=1f144ad916834d1580997d3ba6108378`)
               .then((response) => {
         
-                const genre = response.data.results;
+                const genre = response.data;
+               
                 //console.log(genre)
-                const genres = genre?.map((elem) => elem.name);
-                //console.log(genres)
-                genres.forEach( (elem) => {
+                const genres = genre.results?.map(elem => elem.name);
+                console.log(genres)
+                genres.forEach( elem => {
                    Genre.bulkCreate({
                     where: {
                       name:elem,
@@ -191,8 +191,8 @@ router.get("/videogames", async (req, res, next) =>{
                 return res.status(200).send(genres)
         
               })
-          } catch (error) {
-            return next(error)
+          } catch (err) {
+            return next(err)
           }
         })
     
@@ -217,8 +217,8 @@ router.get("/videogames", async (req, res, next) =>{
         gameCreated.addGenre(genresDb)
         res.send("Videogame successfully created")
                  
-       } catch (error) {
-        return next ( error)
+       } catch (err) {
+        return next ( err)
              }
          }) 
         
@@ -235,8 +235,8 @@ router.get("/videogames", async (req, res, next) =>{
          // //         try {
          // //              Videogame.create(newGame).then(response=>res.send(response)) 
              
-         // // } catch (error) {
-         // //     next ( error)
+         // // } catch (err) {
+         // //     next ( err)
          // // }
          // // }   
          // // else{

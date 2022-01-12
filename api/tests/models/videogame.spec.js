@@ -4,14 +4,14 @@ const { expect } = require('chai');
 describe('Videogame model', () => {
   before(() => conn.authenticate()
     .catch((err) => {
-      console.error('Unable to connect to the database:', err);
+      console.err('Unable to connect to the database:', err);
     }));
   describe('Validators', () => {
     beforeEach(() => Videogame.sync({ force: true }));
     describe('name', () => {
-      it('should throw an error if name is null', (done) => {
+      it('should throw an err if name is null', (done) => {
         Videogame.create({})
-          .then(() => done(new Error('It requires a valid name')))
+          .then(() => done(new Err('It requires a valid name')))
           .catch(() => done());
       });
       it('should work when its a valid name', () => {

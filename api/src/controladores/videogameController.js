@@ -50,7 +50,7 @@
 // }
 // }
 
-// const getApiData= async(req, res, next)=>{//el next que está en app.js para manejar errores, muestra el error pero continúa para que no se rompa la app
+// const getApiData= async(req, res, next)=>{//el next que está en app.js para manejar erres, muestra el err pero continúa para que no se rompa la app
   
 // try{
 //     // const videogamesFromApi=[];
@@ -80,8 +80,8 @@
 //         }
 //     })
 //     return apiData;
-// }catch(error){
-//     next(error)
+// }catch(err){
+//     next(err)
 // }
 // }
 // const getdDbData = async(req, res, next) => {
@@ -95,8 +95,8 @@
 //             },
 //     }
 //     });
-//     } catch (error) {
-//     next ( error)
+//     } catch (err) {
+//     next ( err)
 //     }
 // }
 // const getAllData=async(req, res, next)=> {
@@ -109,8 +109,8 @@
 //     const allData= apiData.concat(dbData);
 //     return allData;
 //     }
-//     }catch(error){
-//         next (error)
+//     }catch(err){
+//         next (err)
 //     }
     //}
 

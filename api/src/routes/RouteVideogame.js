@@ -71,8 +71,8 @@
 //         res.status(200).send(allGames)
 //     }
 
-// }catch(error){
-//     console.log(error)
+// }catch(err){
+//     console.log(err)
 // }
 // })
 

@@ -18,8 +18,8 @@
 //             const gameDetails={name, background_image, genres, description, realeased, rating, platforms}
 //             return gameDetails;
 //         }
-//         }catch (error){
-//            return next(error)
+//         }catch (err){
+//            return next(err)
         
 //         }
 //     } else {
@@ -38,8 +38,8 @@
 //                 })
 //                 return gameCreated
 //             }
-//         } catch (error) {
-//             next(error)
+//         } catch (err) {
+//             next(err)
 //         }
        
 //     }
