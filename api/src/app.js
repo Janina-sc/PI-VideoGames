@@ -28,7 +28,7 @@ server.use('/', routes); //Las request van al Servidor y de ahí las redirige al
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
-  console.err(err);
+  console.error(err);
   res.status(status).send(message);
 });
 
