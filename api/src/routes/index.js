@@ -1,10 +1,11 @@
-const { Router } = require('express');
 require("dotenv").config()
+const { Router } = require('express');
 //const videogames = require("./RouteVideogame.js");
 //const genres = require("./RouteGenre.js");
 const axios = require("axios");
-const { API_KEY } = process.env;
+const {API_KEY} = process.env;
 const {Genre, Videogame, video_genre} = require("../db");
+
 
 // const idVideogame= require("./RouteId.js");
 // const createGame = require("./RouteCreate.js");
@@ -17,13 +18,13 @@ const router = Router(); //inicializa el router, sirve para manejar las rutas, r
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+//console.log(API_KEY)
 const getApiData=async()=>{
-
-    const apiUrl1 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
-    const apiUrl2 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
-    const apiUrl3 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=3`);
-    const apiUrl4 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=4`);
-    const apiUrl5 = axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=5`);
+    const apiUrl1 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
+    const apiUrl2 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
+    const apiUrl3 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=3`);
+    const apiUrl4 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=4`);
+    const apiUrl5 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=5`);
 
     const multiApi = [apiUrl1, apiUrl2, apiUrl3, apiUrl4, apiUrl5]
     const apiGames = [];
@@ -168,7 +169,7 @@ router.get("/videogames", async (req, res, next) =>{
 
     router.get("/genres", async(req, res, next)=>{
         try {
-            await axios.get(` https://api.rawg.io/api/genres?key=1f144ad916834d1580997d3ba6108378`)
+            await axios.get(` https://api.rawg.io/api/genres?key=11f44ad916834d1580997d3ba6108378`)
               .then((response) => {
         
                 const genre = response.data;
@@ -258,3 +259,4 @@ router.get("/videogames", async (req, res, next) =>{
 
 
 
+  
