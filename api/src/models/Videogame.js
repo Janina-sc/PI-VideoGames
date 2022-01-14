@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       },
       image:{
         type:DataTypes.TEXT,
-        allowNull:false,
+        //allowNull:false,
       },
       released:{
         type:DataTypes.STRING,

@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 import styles from "./NavBar.css"
+
 
 export default function NavBar() {
   return (
@@ -13,6 +15,8 @@ export default function NavBar() {
       <NavLink  to="/home" >Home </NavLink>
       
       <NavLink  to="/about">About</NavLink>
+
+      <SearchBar/>
       
       
       </li>

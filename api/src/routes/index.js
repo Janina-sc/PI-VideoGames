@@ -34,11 +34,11 @@ const getApiData=async()=>{
         .then(responses => {
             responses.forEach(responses => apiGames.push(
                 responses.data.results?.map(game => {
-                    const { name, background_image, genres, rating, id } = game;
+                    const { name, background_image, platforms, genres, rating, id } = game;
                     return {
                         name,
                         background_image,
-                        //platforms: platforms.map(game => game.platform.name),
+                        platforms: platforms.map(game => game.platform.name),
                         genres: genres.map(game => game.name),
                         rating,
                         id,
@@ -169,7 +169,7 @@ router.get("/videogames", async (req, res, next) =>{
 
         router.post("/videogame", async(req, res, next)=>{
          try {
-        const  {  name, description, released, rating, genre, platforms, createdInDb} = req.body;
+        const  {  name, description, released, rating, genre, platforms,  createdInDb} = req.body;
         const gameCreated= await Videogame.create({
         name,
         description, 

@@ -4,7 +4,7 @@ import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Card from './components/Card';
 import Detail from './components/Detail';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import CreateGame from './components/CreateGame';
 import About from './components/About'
 

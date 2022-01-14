@@ -2,7 +2,9 @@ const initialState={
     videogames: [],
     allGames:[],
     name:[],
-    rating:[]
+    rating:[],
+    genres:[],
+    platforms:[]
 }
 
 function rootReducer(state=initialState, action){
@@ -60,6 +62,32 @@ function rootReducer(state=initialState, action){
                         ...state,
                         videogames:sortedRating
                     }
+                    case "GET_NAME_GAMES":
+                        return {
+                            ...state,
+                            videogames:action.payload//videogames es  el arreglo que va a filtrar
+                        }
+                         case "GET_GENRES":
+                             let genre=action.payload.map(elem=>elem.name.includes(action.payload))
+                             console.log(genre)
+                             return {
+                                 ...state,
+                                 genres:genre.sort(),
+                                 
+                                }
+                            
+                                case "GET_PLATFORMS":
+                                    let platform=action.payload.filter(elem=>elem.platforms.includes(action.payload))
+                                    return {
+                                        ...state,
+                                        platforms:platform.sort()
+                                    }
+                                
+                        case "CREATE_GAME":
+                            return{
+                                ...state,
+                            }
+
                     
 
 

@@ -27,8 +27,8 @@ export function getGames(){
 //           });
   
 //         })
-//         .catch((error) => {
-//           alert("Get VideoGames not Working")
+//         .catch((err) => {
+//           console.log(err))
 //         }
 //         )
 //     }
@@ -52,6 +52,70 @@ export function filterByCreation(payload){
         return {
             type: "SORT_BY_RATING",
             payload
+        }
+    }
+    export function getNameGames(payload){
+        return async function(dispatch){
+            try {
+                var json= await axios.get("http://localhost:3001/videogames?name=" + payload) //ruta por query del back
+                return dispatch({
+                    type: "GET_NAME_GAMES",
+                    payload:json.data
+
+                })
+            } catch (err) {
+                alert("Videogame not found")
+            }
+        }
+    }
+
+   export function getGenres(){
+       return async function(dispatch){
+           try {
+               const response= await axios.get("http://localhost:3001/genres");
+               return dispatch({
+                   type: "GET_GENRES",
+                   payload:response.data
+               })
+           } catch (err) {
+               console.log(err)
+               
+           }
+
+
+       }
+   }
+
+   export function getPlatforms(){
+       return async function(dispatch){
+           try {
+               const response= await axios.get("http://localhost:3001/videogames");
+               return dispatch({
+                   type: "GET_PLATFORMS",
+                   payload:response.data
+               })
+               
+           } catch (err) {
+               console.log(err)
+               
+           }
+       }
+   }
+
+
+    export function newGame(payload){
+        return async function(dispatch){
+            try {
+                const response= await axios.post("http://localhost:3001/videogame", payload)
+                console.log(response)
+                return dispatch({
+                    type: "CREATE_GAME",
+                    payload: response.data
+                })
+            } catch (err) {
+                alert("Game not created")
+                
+            }
         }
     }
    

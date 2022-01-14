@@ -1,14 +1,15 @@
 import React from "react";
 import {useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import {getGames, filterByCreation, sortByName, sortByRating} from "../actions";
+import {getGames, filterByCreation, sortByName, sortByRating, getGenres} from "../actions";
 import {Link} from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
 
 export default function Home(){
     const  dispatch = useDispatch();
-    const allGames= useSelector((state)=>state.videogames)//equivale al mapStateToProps
+    const allGames= useSelector((state)=>state.videogames)
+    const genres= useSelector((state)=>state.genres)//equivale al mapStateToProps
     const [orden, setOrden]=useState("")//estado local vacío,cuando seteo la app me modifica el estado local y se renderiza
     const [currentPage, setCurrentPage]=useState(1);//estado local,el usestate es 1 porque es donde arranca
     const [gamesPerPage, setGamesPerPage]= useState(15);//estado local:los que renderiza por página
@@ -23,6 +24,9 @@ export default function Home(){
     useEffect(()=>{//traemos los vg cuando el componente se monta
         dispatch(getGames())//equivale al mapDispatchToProps
     }, [dispatch])//para evitar loops infinitos
+    useEffect(()=>{
+        dispatch(getGenres())
+    },[dispatch])
 
      function handleClick(e){
          e.preventDefault();
