@@ -34,14 +34,14 @@ const getApiData=async()=>{
         .then(responses => {
             responses.forEach(responses => apiGames.push(
                 responses.data.results?.map(game => {
-                    const { name, background_image, genres, id } = game;
+                    const { name, background_image, genres, rating, id } = game;
                     return {
                         name,
                         background_image,
                         //platforms: platforms.map(game => game.platform.name),
                         genres: genres.map(game => game.name),
-                        // rating,
-                         id,
+                        rating,
+                        id,
                     }
                 })
 

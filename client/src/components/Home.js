@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import {getGames, filterByCreation} from "../actions";
+import {getGames, filterByCreation, sortByName, sortByRating} from "../actions";
 import {Link} from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
@@ -9,6 +9,7 @@ import Paginado from "./Paginado";
 export default function Home(){
     const  dispatch = useDispatch();
     const allGames= useSelector((state)=>state.videogames)//equivale al mapStateToProps
+    const [orden, setOrden]=useState("")//estado local vacío,cuando seteo la app me modifica el estado local y se renderiza
     const [currentPage, setCurrentPage]=useState(1);//estado local,el usestate es 1 porque es donde arranca
     const [gamesPerPage, setGamesPerPage]= useState(15);//estado local:los que renderiza por página
     const indexOfLastGame= currentPage * gamesPerPage//15
@@ -29,7 +30,23 @@ export default function Home(){
 
      }
      function handleFilterByCreation(e){
+         e.preventDefault();
          dispatch(filterByCreation(e.target.value))//lo que viene del select, el payload
+         setCurrentPage(1);
+         setOrden(`Ordenado ${e.target.value}`)
+     }
+     function handleSortByName(e){
+         e.preventDefault();
+         dispatch(sortByName(e.target.value))
+         setCurrentPage(1);
+         setOrden(`Ordenado ${e.target.value}`)
+
+     }
+     function handleSortByRating(e){
+         e.preventDefault();
+         dispatch(sortByRating(e.target.value))
+         setCurrentPage(1);
+         setOrden(`Ordenado ${e.target.value}`)
      }
 
     return (
@@ -42,35 +59,39 @@ export default function Home(){
             <div>
                 <label> Genres:</label>
                 <select name="filtergenres" defaultValue={"default"}/>
-                <option value="default" name="default">Genres</option>
+                <option value="default" name="default"></option>
                 <option value="all"></option>
                 {/* //dejé acá */}
                 {  }
+                <label>Choose by source of creation:</label>
                 <select onChange={handleFilterByCreation}>
-                    <option>All</option>
-                    <option>Api</option>
-                    <option>Created</option>
+                    <option value="All">All</option>
+                    <option valu="Api">Api</option>
+                    <option value= "Created">Created</option>
                 </select>
                 <Paginado
                 gamesPerPage={gamesPerPage}//son las props que el Paginado necesita
                 allGames={allGames.length}
                 paginado={paginado}
                 />
-                <select>
+                <select onChange={handleSortByName}>
                     <option value = "asc" >A-Z Videogames</option>
                     <option value = "desc" >Z-A Videogames</option>
                 </select>
-                <select>
+                <select onChange={handleSortByRating}>
                     <option value="asc">Increasing Rating</option>
-                    <option value="des">Decreasing Rating</option>
+                    <option value="desc">Decreasing Rating</option>
                 </select>
                 {
                    currentGames?.map(elem=>{
                        return (
                        <Card 
                        name={elem.name}
-                       image={elem.img}
-                       genre={elem.genre}/>
+                       background_image={elem.background_image}
+                       genre={elem.genre}
+                       rating={elem.rating}
+                       id={elem.id}
+                       key={elem.id}/>
                        )
                    })
                 }

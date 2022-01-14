@@ -39,5 +39,20 @@ export function filterByCreation(payload){
         type: "FILTER_BY_CREATION",
         payload,
     };
-   
 }
+
+    export function sortByName(payload){
+        return{
+            type: "SORT_BY_NAME",
+            payload
+
+        }
+    }
+    export function sortByRating(payload){
+        return {
+            type: "SORT_BY_RATING",
+            payload
+        }
+    }
+   
+

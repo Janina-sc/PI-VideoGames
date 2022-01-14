@@ -14,7 +14,7 @@
         align-content: center;
         
     }
-    .paginado{
+     .paginado{
         color: black;
         
         padding: 8px 16px;
@@ -24,11 +24,11 @@
         border-width: 2px;
         border-color: rgb(73, 70, 70);
         background-color: rgb(221, 215, 215);
-        color:rgb(41, 40, 40);
+        color:rgb(41, 40, 40); 
         margin:0 4 px;
         position: relative;
         align-content: center;
-      }
+      } 
       
       .paginado a:hover:not(.active) {
         background-color: #ddd;
