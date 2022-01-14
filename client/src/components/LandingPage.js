@@ -10,14 +10,7 @@ export default function Landing(){
             <div className="image-landingpage"></div>
             <Link to='/home'>
                 <button className="botonIngresar">Let's go</button>
-            </Link>
-            
-            
-            
-
-           
-
-            
+            </Link>    
         </div>
     )
 }

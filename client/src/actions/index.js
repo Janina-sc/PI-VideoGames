@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 
 export function getGames(){
@@ -33,3 +33,11 @@ export function getGames(){
 //         )
 //     }
 //   }
+
+export function filterByCreation(payload){
+    return {
+        type: "FILTER_BY_CREATION",
+        payload,
+    };
+   
+}

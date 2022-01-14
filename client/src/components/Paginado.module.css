@@ -1,0 +1,36 @@
+.number{
+    display: inline-block;
+    
+    padding: 2px 4px;
+    text-decoration: none;
+        border-radius: 2px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgb(73, 70, 70);
+        background-color: rgb(168, 166, 166);
+        color:rgb(82, 78, 78);
+        margin:0 4 px;
+        position: relative;
+        align-content: center;
+        
+    }
+    .paginado{
+        color: black;
+        
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 2.5px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(73, 70, 70);
+        background-color: rgb(221, 215, 215);
+        color:rgb(41, 40, 40);
+        margin:0 4 px;
+        position: relative;
+        align-content: center;
+      }
+      
+      .paginado a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
