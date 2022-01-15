@@ -4,8 +4,10 @@ const initialState={
     name:[],
     rating:[],
     genres:[],
-    platforms:[]
+    platforms:[],
+    detail:[]
 }
+
 
 function rootReducer(state=initialState, action){
     switch(action.type){
@@ -67,26 +69,48 @@ function rootReducer(state=initialState, action){
                             ...state,
                             videogames:action.payload//videogames es  el arreglo que va a filtrar
                         }
-                         case "GET_GENRES":
-                             let genre=action.payload.map(elem=>elem.name.includes(action.payload))
-                             console.log(genre)
+                        case "GET_GENRES":
+                            return {
+                                
+                                ...state,
+                                genres:action.payload.map(genre=>genre),
+                            }
+                            
+                            
+                         case "FILTER_BY_GENRES":
+                             let genre=action.payload==="all"? state.genres : state.genres.filter(elem=>elem.genres.includes(action.payload))
+                             
                              return {
                                  ...state,
                                  genres:genre.sort(),
                                  
                                 }
-                            
                                 case "GET_PLATFORMS":
-                                    let platform=action.payload.filter(elem=>elem.platforms.includes(action.payload))
+                                    return {
+                                        ...state,
+                                        platforms:action.payload.map(elem=>elem.platform)
+                                        
+                                    }
+                                    
+                            
+                                case "FILTER_BY_PLATFORMS":
+                                    let platform=action.payload==="all"? state.platforms : state.platforms.filter(elem=>elem.platforms.includes(action.payload))
                                     return {
                                         ...state,
                                         platforms:platform.sort()
+                                        
                                     }
+                                 
                                 
                         case "CREATE_GAME":
                             return{
                                 ...state,
                             }
+                            case "GET_DETAIL":
+                                return {
+                                    ...state,
+                                    detail:action.payload
+                                }
 
                     
 

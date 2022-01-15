@@ -85,14 +85,23 @@ export function filterByCreation(payload){
 
        }
    }
+    export function filterByGenre(payload){
+        return {
+            type: "FILTER_BY_GENRE", 
+            payload
+        }
+
+    }
 
    export function getPlatforms(){
        return async function(dispatch){
            try {
+               console.log(responseMaped)
                const response= await axios.get("http://localhost:3001/videogames");
+               const responseMaped=  response.map(platforms=>platforms)
                return dispatch({
                    type: "GET_PLATFORMS",
-                   payload:response.data
+                   payload:responseMaped.data
                })
                
            } catch (err) {
@@ -101,6 +110,12 @@ export function filterByCreation(payload){
            }
        }
    }
+    export function filterByPlatforms(payload){
+        return{
+        type: "FILTER_BY_PLATFORMS",
+        payload
+    }
+}
 
 
     export function newGame(payload){
@@ -113,10 +128,25 @@ export function filterByCreation(payload){
                     payload: response.data
                 })
             } catch (err) {
-                alert("Game not created")
+                console.log(err)
                 
             }
         }
+    }
+    export function getDetail(id){
+        return async function(dispatch){
+            try {
+                var json=await axios.get("http://localhost:3001/videogame/" + id)
+                return dispatch({
+                    type: "GET_DETAIL",
+                    payload:json.data
+                })
+            } catch (err) {
+                alert("Game ID not found")
+                
+            }
+        }
+
     }
    
 

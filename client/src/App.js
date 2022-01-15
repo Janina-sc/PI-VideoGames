@@ -19,8 +19,8 @@ function App() {
         <Route exact path= '/' element={<LandingPage/>}/> 
         <Route  path = '/home' element={<Home/>}/>
         <Route  path = '/card' element={<Card/>}/>
-        {/* <Route  path = '/createGame' element={<CreateGame/>}/> */}
-        {/* <Route  path = '/videogame/:id' element={<Detail/>}/> */}
+        <Route  path = '/createvideogame' element={<CreateGame/>}/>
+        <Route  path = '/videogame/:id' element={<Detail/>}/>
         {/* <Route  path = '/about' element={<About/>}/> */}
         
       </Routes>

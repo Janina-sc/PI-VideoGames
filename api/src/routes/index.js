@@ -31,25 +31,25 @@ const getApiData=async()=>{
     const apiGames = [];
 
     await Promise.all(multiApi)
-        .then(responses => {
-            responses.forEach(responses => apiGames.push(
-                responses.data.results?.map(game => {
-                    const { name, background_image, platforms, genres, rating, id } = game;
-                    return {
-                        name,
-                        background_image,
-                        platforms: platforms.map(game => game.platform.name),
-                        genres: genres.map(game => game.name),
-                        rating,
-                        id,
-                    }
-                })
+    .then(responses => {
+        responses.forEach(responses => apiGames.push(
+            responses.data.results?.map(game => {
+                const { name, background_image, platforms, genres, rating, id } = game;
+                return {
+                    name,
+                    background_image,
+                    platforms: platforms.map(game => game.platform.name),
+                    genres: genres.map(game => game.name),
+                    rating,
+                    id,
+                }
+            })
 
-            ))
-        })
+        ))
+    })
 
-    return apiGames.flat();
-    
+return apiGames.flat();
+
 };
 const getdbInfo = async () => {
     return await Videogame.findAll({
@@ -83,14 +83,57 @@ router.get("/videogames", async (req, res, next) =>{
       if (dataGame.length >= 1) return res.status(200).send(dataGame.slice(0,16)) 
       res.status(404).send("Game not found")
     } else {
-      let allGames2 = await getAllGames()
-      res.status(200).json(allGames2)
+      res.status(200).send(allGames)
+      // let allGames2 = await getAllGames()
+      // res.status(200).json(allGames2)
     }
     } catch (err) {
       return next(err); 
     }
     });
-     
+
+
+  //------------------Prueba plaforms
+//   const getApiDataPlatforms=async()=>{
+//     const apiUrlPlat1 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
+//     const apiUrlPlat2 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
+//     const apiUrlPlat3 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=3`);
+//     const apiUrlPlat4 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=4`);
+//     const apiUrlPlat5 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=5`);
+
+//     const multiApiPlat = [apiUrlPlat1, apiUrlPlat2, apiUrlPlat3, apiUrlPlat4, apiUrlPlatapiPlatforms5]
+//     const apiPlatforms = [];
+
+//     await Promise.all(multiApiPlat)
+//         .then(responses => {
+//             responses.forEach(responses => apiPlatforms.push(
+//                 responses.data.results?.map(plat => {
+//                     const { platforms } = plat;
+//                     return {
+                        
+//                         platforms: platforms.map(plat => plat.platform.name),
+                        
+//                     }
+//                 })
+
+//             ))
+//         })
+
+//     return apiPlatforms.flat();
+    
+// };
+// router.get("/platforms", async(req, res, next)=>{
+//   try {
+//   console.log(platformsResults)
+//   platformsResults=apiGames.map(platforms=>platforms)
+//   return platformsResults
+    
+//   } catch (err) {
+//     console.log(err)
+    
+//   }
+// })
+     //---------------------------------------------------------------
 
     router.get("/videogame/:id", async(req, res, next)=>{
     
@@ -117,8 +160,8 @@ router.get("/videogames", async (req, res, next) =>{
                     released,
                     background_image,
                     rating,
-                    platforms: platforms.map(game => game.platform.name),
-                    genres: genres.map(game => game.name),
+                    platforms:platforms.map(elem=>elem.platform.name),
+                    genres: genres.map(elem=>elem.name),
                   }
                   res.status(200).json(gameDetails);
                 }
@@ -213,6 +256,7 @@ router.get("/videogames", async (req, res, next) =>{
          // //     res.send("Sin datos suficientes")
          // // }
          // // }
+
          
 
         

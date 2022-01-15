@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import {getGames, filterByCreation, sortByName, sortByRating, getGenres} from "../actions";
+import {getGames, filterByCreation, sortByName, sortByRating, getGenres, filterByGenre} from "../actions";
 import {Link} from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
@@ -10,6 +10,8 @@ export default function Home(){
     const  dispatch = useDispatch();
     const allGames= useSelector((state)=>state.videogames)
     const genres= useSelector((state)=>state.genres)//equivale al mapStateToProps
+    console.log(genres)
+
     const [orden, setOrden]=useState("")//estado local vacío,cuando seteo la app me modifica el estado local y se renderiza
     const [currentPage, setCurrentPage]=useState(1);//estado local,el usestate es 1 porque es donde arranca
     const [gamesPerPage, setGamesPerPage]= useState(15);//estado local:los que renderiza por página
@@ -24,14 +26,25 @@ export default function Home(){
     useEffect(()=>{//traemos los vg cuando el componente se monta
         dispatch(getGames())//equivale al mapDispatchToProps
     }, [dispatch])//para evitar loops infinitos
+
     useEffect(()=>{
         dispatch(getGenres())
     },[dispatch])
+
+    // useEffect(()=>{
+    //     dispatch(filterByGenre())
+    // },[dispatch])
 
      function handleClick(e){
          e.preventDefault();
          dispatch(getGames())//resetea para que traiga todos los games de nuevo cuando se buggea
 
+     }
+     function handleFilterByGenres(e){
+         e.preventDefault()
+         dispatch(filterByGenre(e.target.value))
+         setCurrentPage(1)
+         setOrden(`Ordenado ${e.target.value}`)
      }
      function handleFilterByCreation(e){
          e.preventDefault();
@@ -53,8 +66,9 @@ export default function Home(){
          setOrden(`Ordenado ${e.target.value}`)
      }
 
-    return (
-        <div>
+     return (
+         <div>
+                
             <Link to='/createvideogame'>Create videogame</Link>
             <h1>We love Playing!</h1>
             <button onClick={e=>{handleClick(e)}}>
@@ -62,11 +76,17 @@ export default function Home(){
             </button>
             <div>
                 <label> Genres:</label>
-                <select name="filtergenres" defaultValue={"default"}/>
+                <select name="filtergenres" defaultValue={"default"}
+                onChange={(e)=>handleFilterByGenres(e)}/>
                 <option value="default" name="default"></option>
                 <option value="all"></option>
-                {/* //dejé acá */}
-                {  }
+                { 
+                genres?.map((genres) =>{
+                    console.log(genres)
+                    return (
+                        <option key={genres} value={genres}>{genres}</option>
+                        )
+                    })}
                 <label>Choose by source of creation:</label>
                 <select onChange={handleFilterByCreation}>
                     <option value="All">All</option>
