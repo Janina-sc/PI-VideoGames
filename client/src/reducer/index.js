@@ -86,20 +86,22 @@ function rootReducer(state=initialState, action){
                                  
                                 }
                                 case "GET_PLATFORMS":
+                                    
                                     return {
+
                                         ...state,
-                                        platforms:action.payload.map(elem=>elem.platform)
+                                        platforms:action.payload.map(elem=>elem.platforms).flat()
                                         
                                     }
                                     
                             
-                                case "FILTER_BY_PLATFORMS":
-                                    let platform=action.payload==="all"? state.platforms : state.platforms.filter(elem=>elem.platforms.includes(action.payload))
-                                    return {
-                                        ...state,
-                                        platforms:platform.sort()
+                                // case "FILTER_BY_PLATFORMS":
+                                //     let platform=action.payload==="all"? state.platforms : state.platforms.filter(elem=>elem.platforms.includes(action.payload))
+                                //     return {
+                                //         ...state,
+                                //         platforms:platform.sort()
                                         
-                                    }
+                                //     }
                                  
                                 
                         case "CREATE_GAME":

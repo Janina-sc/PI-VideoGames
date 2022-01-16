@@ -94,45 +94,46 @@ router.get("/videogames", async (req, res, next) =>{
 
 
   //------------------Prueba plaforms
-//   const getApiDataPlatforms=async()=>{
-//     const apiUrlPlat1 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
-//     const apiUrlPlat2 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
-//     const apiUrlPlat3 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=3`);
-//     const apiUrlPlat4 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=4`);
-//     const apiUrlPlat5 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=5`);
+  const getApiDataPlatforms=async()=>{
+    const apiUrlPlat1 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
+    const apiUrlPlat2 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
+    const apiUrlPlat3 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=3`);
+    const apiUrlPlat4 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=4`);
+    const apiUrlPlat5 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=5`);
 
-//     const multiApiPlat = [apiUrlPlat1, apiUrlPlat2, apiUrlPlat3, apiUrlPlat4, apiUrlPlatapiPlatforms5]
-//     const apiPlatforms = [];
+    const multiApiPlat = [apiUrlPlat1, apiUrlPlat2, apiUrlPlat3, apiUrlPlat4, apiUrlPlatapiPlatforms5]
+    const apiPlatforms = [];
 
-//     await Promise.all(multiApiPlat)
-//         .then(responses => {
-//             responses.forEach(responses => apiPlatforms.push(
-//                 responses.data.results?.map(plat => {
-//                     const { platforms } = plat;
-//                     return {
+    await Promise.all(multiApiPlat)
+        .then(response => {
+            response.forEach(response => apiPlatforms.push(
+                response.data.results.platforms?.map(plat => {
+                    const { platforms } = plat;
+                    console.log(response)
+                    return {
                         
-//                         platforms: platforms.map(plat => plat.platform.name),
+                        platforms: platforms.map(plat => plat.platform.name),
                         
-//                     }
-//                 })
+                    }
+                })
 
-//             ))
-//         })
+            ))
+        })
 
-//     return apiPlatforms.flat();
+    return apiPlatforms;
     
-// };
-// router.get("/platforms", async(req, res, next)=>{
-//   try {
-//   console.log(platformsResults)
-//   platformsResults=apiGames.map(platforms=>platforms)
-//   return platformsResults
+};
+router.get("/platforms", async(req, res, next)=>{
+  try {
+  console.log(platformsResults)
+  platformsResults=apiGames.map(platforms=>platforms)
+  return platformsResults
     
-//   } catch (err) {
-//     console.log(err)
+  } catch (err) {
+    console.log(err)
     
-//   }
-// })
+  }
+})
      //---------------------------------------------------------------
 
     router.get("/videogame/:id", async(req, res, next)=>{
@@ -144,7 +145,13 @@ router.get("/videogames", async (req, res, next) =>{
               if (id.includes("-")) {
                 const gamesDb = await Videogame.findOne({
                   where: { id: id },
-                  include: [Genre],
+                  include: {
+                    model: Genre,
+                    attributes:["name"],
+                    through:{
+                      attributes:[],
+                    }
+                  },
                 });
           
                 return res.json(gamesDb);

@@ -96,12 +96,13 @@ export function filterByCreation(payload){
    export function getPlatforms(){
        return async function(dispatch){
            try {
-               console.log(responseMaped)
+               
                const response= await axios.get("http://localhost:3001/videogames");
-               const responseMaped=  response.map(platforms=>platforms)
+               
+               //const responseMaped=  response.map(elem=>elem.platforms)
                return dispatch({
                    type: "GET_PLATFORMS",
-                   payload:responseMaped.data
+                   payload:response.data
                })
                
            } catch (err) {
@@ -110,12 +111,12 @@ export function filterByCreation(payload){
            }
        }
    }
-    export function filterByPlatforms(payload){
-        return{
-        type: "FILTER_BY_PLATFORMS",
-        payload
-    }
-}
+//     export function filterByPlatforms(payload){
+//         return{
+//         type: "FILTER_BY_PLATFORMS",
+//         payload
+//     }
+// }
 
 
     export function newGame(payload){

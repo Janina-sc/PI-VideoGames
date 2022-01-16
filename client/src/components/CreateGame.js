@@ -26,8 +26,8 @@ function validate(input){
 export default function CreateGame(){
     const dispatch=useDispatch();
     const genres= useSelector((state)=> state.genres)
-    const plaforms=useSelector(state => state.plaforms)//traigo el estado global
-    console.log(plaforms)
+    const platforms=useSelector(state => state.platforms)//traigo el estado global
+    console.log(platforms)
     const [errors, setErrors]=useState({});
     const [input, setInput]=useState({
         name:"",
@@ -97,7 +97,7 @@ export default function CreateGame(){
             setErrors(
                 validate({
                     ...input,
-                    [e.target.genres]:e.target.value,
+                    [e.target.platforms]:e.target.value,
                 })
                 )
             }
@@ -228,9 +228,9 @@ export default function CreateGame(){
                 onChange={(e)=>handleSelectPlatforms(e)}>
                     <option value="default" name="default"></option>
                 <option value="all"></option>
-                    {plaforms?.map(plaforms=>(
-                        <option key={plaforms.name}
-                        value={plaforms}>{plaforms}</option>
+                    {platforms?.map(platforms=>(
+                        <option key={platforms.name}
+                        value={platforms}>{platforms + ", "}</option>
                     ))}
                     
 

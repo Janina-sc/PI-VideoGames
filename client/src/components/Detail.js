@@ -16,7 +16,7 @@ export default function GameDetail(){
 
     useEffect(()=>{
         dispatch(getDetail(id))
-    },[id, dispatch])
+    },[ dispatch,id])
     useEffect(()=>{
         dispatch(getGenres())
     }, [dispatch])
@@ -26,7 +26,7 @@ export default function GameDetail(){
 
     return (
         <div>
-        {
+        {/* {
             detailedGame.length>0 ?
             <div>
                 <h1>Game {detailedGame.name}</h1>
@@ -36,8 +36,9 @@ export default function GameDetail(){
                  <p>Released at {released}</p>
                  <p>Rating {rating}</p>
                  <h3>Platforms: {plataforms.join(", ")}</h3>
-                 </div>
-        } : <p>Loading...</p>
+                 <p>ID{id}</p>
+                 </div> : <p>Loading...</p>
+        }  */}
 
         </div>
        
