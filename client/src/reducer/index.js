@@ -102,6 +102,7 @@ function rootReducer(state=initialState, action){
                             return{
                                 ...state,
                                 
+                                
                             }
                             case "GET_DETAIL":
                                 return {

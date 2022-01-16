@@ -80,7 +80,7 @@ export default function Home(){
                 <option value="all">All Genres</option>
                 { 
                 genres?.map((genres) =>{
-                    console.log(genres)
+                   // console.log(genres)
                     return (
                         <option key={genres} value={genres}>{genres}</option>
                         )
@@ -116,7 +116,7 @@ export default function Home(){
                        background_image={elem.background_image}
                        genres={elem.genres}
                        rating={elem.rating}
-                        id={elem.id}
+                       id={elem.id}
                        key={elem.id}/>
                        )
                    })

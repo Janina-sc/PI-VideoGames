@@ -127,7 +127,7 @@ router.get("/videogames", async (req, res, next) =>{
                     background_image,
                     rating,
                     platforms:platforms.map(elem=>elem.platform.name).join(", "),
-                    genres: genres.map(elem=>elem.name).join(", "),
+                    genres:genres.map(elem=>elem.name).join(", "),
                   }
                   res.status(200).json(gameDetails);
                 }
@@ -178,9 +178,10 @@ router.get("/videogames", async (req, res, next) =>{
 
         router.post("/videogame", async(req, res, next)=>{
          try {
-        const  {  name, description, released, rating, genre, platforms,  createdInDb} = req.body;
+        const  {  name, background_image,description, released, rating, genre, platforms,  createdInDb} = req.body;
         const gameCreated= await Videogame.create({
         name,
+        background_image,
         description, 
         released, 
         rating,

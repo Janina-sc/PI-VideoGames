@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from "react";
 import {newGame, getGenres, getPlatforms } from '../actions';
@@ -16,8 +16,14 @@ function validate(input){
     else if(!input.released) {
         errors.released="Must declare a released date"
     }
-    else if((!input.rating)&& (input.rating <0 && input.rating>10)){
+    else if((!input.rating)&& (input.rating <0 && input.rating>5)){
         errors.rating="Must have a value between 0 and 10"
+    }
+    else if(!input.platforms){
+        errors.platforms="Must add at least one platform"
+    }
+    else if(!input.genres){
+        errors.genres="Must add at least one genre"
     }
     
 
@@ -26,11 +32,13 @@ function validate(input){
 export default function CreateGame(){
     const dispatch=useDispatch();
     const genres= useSelector((state)=> state.genres)
+    console.log(genres)
     const platforms=useSelector(state => state.platforms)//traigo el estado global
     console.log(platforms)
     const [errors, setErrors]=useState({});
     const [input, setInput]=useState({
         name:"",
+        background_image:"",
         description:"",
         released:"",
         rating:"",
@@ -48,6 +56,7 @@ export default function CreateGame(){
         alert("Game successfully created")
         setInput({
             name:"",
+            background_image:"",
             description:"",
             released:"",
             rating:"",
@@ -60,6 +69,7 @@ export default function CreateGame(){
     function clearForm(){
         setInput({
             name:"",
+            background_image:"",
             description:"",
             released:"",
             rating:"",
@@ -133,9 +143,7 @@ export default function CreateGame(){
                 dispatch(getPlatforms())
             }, [dispatch])
             
-            useEffect(()=>{
-                dispatch(newGame())
-            },[dispatch])
+           
             
             return (
                 <div>
@@ -157,6 +165,16 @@ export default function CreateGame(){
                 {errors.name && (
                     <p>{errors.name}</p>
                 )}
+            </div>
+            <div>
+                <label>Image:</label>
+                <input key="background_image"
+                name="background_image"
+                type="text"
+                placeholder="Image"
+                value={input.background_image}
+                onChange={handleChange}>
+                </input>
             </div>
             <div>
                 <label>Description:</label>
@@ -211,6 +229,9 @@ export default function CreateGame(){
                         <option key={genres.id}
                         value={genres}>{genres}</option>
                     ))}
+                    {errors.genres&&(
+                        <p>{errors.genres}</p>
+                    )}
 
                 </select>
                 <ul><li>{input.genres.map(elem=>elem.name + ", ")}</li></ul>
@@ -232,6 +253,9 @@ export default function CreateGame(){
                         <option key={platforms.name}
                         value={platforms}>{platforms + ", "}</option>
                     ))}
+                    {errors.platforms && (
+                        <p>{errors.platforms}</p>
+                    )}
                     
 
                 </select>
@@ -265,6 +289,9 @@ export default function CreateGame(){
             
 
         </form>
+        <div>
+        <NavLink to= '/home'><button>Go Home</button></NavLink>
+        </div>
     </div>
 )
 }

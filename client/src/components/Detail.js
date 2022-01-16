@@ -18,28 +18,35 @@ export default function GameDetail(){
     useEffect(()=>{
         dispatch(getDetail(id))
     },[dispatch, id])
-    // useEffect(()=>{
-    //     dispatch(getGenres())
-    // }, [dispatch])
-    // useEffect(()=>{
-    //     dispatch(getPlatforms())
-    // },[dispatch])
-//const createdInDb=true
+    useEffect(()=>{
+        dispatch(getGenres())
+    }, [dispatch])
+    useEffect(()=>{
+        dispatch(getPlatforms())
+    },[dispatch])
+    
+    const imageByDefault= "https://www.semana.com/tecnologia/articulo/por-que-los-videojuegos-son-hoy-la-mayor-industria-del-entretenimiento/301806/"
+
+// if (typeof genres[0] !=="string") {
+//     genres = genres.map((elem) => elem.name);
+//   } else {
+//     genres = genres;
+//   }
     return (
         <div>
-            <h1>Soy el detalle</h1>
+            
         {
             detailedGame ?
             <div>
                 <h1>Game {detailedGame.name}</h1>
-                <img src={detailedGame.background_image} alt="game" width="200px" height="250px" />
+                <img src={detailedGame.background_image? detailedGame.background_image : imageByDefault} alt="game" width="200px" height="250px" />
                  
                   <h3>Genres: {detailedGame.genres}</h3> 
                   <p>Description: {detailedGame.description }</p>
                  <p>Released at {detailedGame.released }</p>
                  <p>Rating {detailedGame.rating }</p>
                  <h3>Platforms: {detailedGame.platforms}</h3>
-                 <p>ID{id}</p>
+                 {/* <p>ID{detailedGame.id}</p> */}
                  </div> : <p>Loading...</p>
         }  
          <div>
