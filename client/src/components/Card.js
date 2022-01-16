@@ -17,7 +17,6 @@ export default function GameCard({name, background_image, genres, rating, id}){
             </Link>
             <img src={background_image } alt="image" width="200px" height="250px" />
             <h5> Genres: { genres?.join(", ")}</h5>
-            
             <h6>Rating: {rating}</h6>
             <h6>ID: {id}</h6>
         </div>

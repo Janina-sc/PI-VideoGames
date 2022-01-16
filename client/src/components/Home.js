@@ -109,12 +109,14 @@ export default function Home(){
                 {
                    currentGames?.map(elem=>{
                        return (
+                           
                        <Card 
+
                        name={elem.name}
                        background_image={elem.background_image}
                        genres={elem.genres}
                        rating={elem.rating}
-                       id={elem.id}
+                        id={elem.id}
                        key={elem.id}/>
                        )
                    })

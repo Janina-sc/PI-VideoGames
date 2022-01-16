@@ -8,37 +8,45 @@ import {getDetail, getGenres, getPlatforms} from '../actions/index';
 
 export default function GameDetail(){
 
-    const dispatch= useDispatch();
     const {id}=useParams();
+    const dispatch= useDispatch();
     const detailedGame=useSelector((state)=>state.detail)
+    console.log(detailedGame)
     const genres=useSelector(state=>state.genres)
-    const plataforms=useSelector(state=>state.plataforms)
+    const platforms=useSelector(state=>state.platforms)
 
     useEffect(()=>{
         dispatch(getDetail(id))
-    },[ dispatch,id])
-    useEffect(()=>{
-        dispatch(getGenres())
-    }, [dispatch])
-    useEffect(()=>{
-        dispatch(getPlatforms())
-    },[dispatch])
-
+    },[dispatch, id])
+    // useEffect(()=>{
+    //     dispatch(getGenres())
+    // }, [dispatch])
+    // useEffect(()=>{
+    //     dispatch(getPlatforms())
+    // },[dispatch])
+//const createdInDb=true
     return (
         <div>
-        {/* {
-            detailedGame.length>0 ?
+            <h1>Soy el detalle</h1>
+        {
+            detailedGame ?
             <div>
                 <h1>Game {detailedGame.name}</h1>
-                <img src={background_image} alt="image" width="200px" height="250px" />
-                 <h3>Genres: {genres.join(", ")}</h3>
-                 <p>Description: {description}</p>
-                 <p>Released at {released}</p>
-                 <p>Rating {rating}</p>
-                 <h3>Platforms: {plataforms.join(", ")}</h3>
+                <img src={detailedGame.background_image} alt="game" width="200px" height="250px" />
+                 
+                  <h3>Genres: {detailedGame.genres}</h3> 
+                  <p>Description: {detailedGame.description }</p>
+                 <p>Released at {detailedGame.released }</p>
+                 <p>Rating {detailedGame.rating }</p>
+                 <h3>Platforms: {detailedGame.platforms}</h3>
                  <p>ID{id}</p>
                  </div> : <p>Loading...</p>
-        }  */}
+        }  
+         <div>
+            <Link to= "/home">
+                <button> Go back</button>
+            </Link> 
+         </div>
 
         </div>
        

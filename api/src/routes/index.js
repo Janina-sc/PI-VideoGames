@@ -126,8 +126,8 @@ router.get("/videogames", async (req, res, next) =>{
                     released,
                     background_image,
                     rating,
-                    platforms:platforms.map(elem=>elem.platform.name),
-                    genres: genres.map(elem=>elem.name),
+                    platforms:platforms.map(elem=>elem.platform.name).join(", "),
+                    genres: genres.map(elem=>elem.name).join(", "),
                   }
                   res.status(200).json(gameDetails);
                 }
