@@ -213,7 +213,7 @@ export default function CreateGame(){
                     ))}
 
                 </select>
-                <ul><li>{input.genres.map(elem=>elem + ", ")}</li></ul>
+                <ul><li>{input.genres.map(elem=>elem.name + ", ")}</li></ul>
             </div>
             <div>
             {input.genres.map(elem=>

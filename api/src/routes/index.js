@@ -194,7 +194,7 @@ router.get("/videogames", async (req, res, next) =>{
              }
         })
         gameCreated.addGenre(genresDb)
-        res.send("Videogame successfully created")
+        return res.send("Game successfully created")
                  
        } catch (err) {
         return next ( err)

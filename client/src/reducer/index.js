@@ -101,6 +101,7 @@ function rootReducer(state=initialState, action){
                         case "CREATE_GAME":
                             return{
                                 ...state,
+                                
                             }
                             case "GET_DETAIL":
                                 return {
