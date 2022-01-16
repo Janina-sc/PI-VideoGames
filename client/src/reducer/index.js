@@ -78,11 +78,11 @@ function rootReducer(state=initialState, action){
                             
                             
                          case "FILTER_BY_GENRES":
-                             let genre=action.payload==="all"? state.genres : state.genres.filter(elem=>elem.genres.includes(action.payload))
+                             let genre = action.payload === "all" ? state.videogames : state.videogames.filter((elem)=>elem.genres.includes(action.payload))
                              
                              return {
                                  ...state,
-                                 genres:genre.sort(),
+                                 videogames:genre,
                                  
                                 }
                                 case "GET_PLATFORMS":
@@ -95,13 +95,7 @@ function rootReducer(state=initialState, action){
                                     }
                                     
                             
-                                // case "FILTER_BY_PLATFORMS":
-                                //     let platform=action.payload==="all"? state.platforms : state.platforms.filter(elem=>elem.platforms.includes(action.payload))
-                                //     return {
-                                //         ...state,
-                                //         platforms:platform.sort()
-                                        
-                                //     }
+                                
                                  
                                 
                         case "CREATE_GAME":

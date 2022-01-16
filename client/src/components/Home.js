@@ -10,7 +10,7 @@ export default function Home(){
     const  dispatch = useDispatch();
     const allGames= useSelector((state)=>state.videogames)
     const genres= useSelector((state)=>state.genres)//equivale al mapStateToProps
-    console.log(genres)
+    //console.log(genres)
 
     const [orden, setOrden]=useState("")//estado local vacío,cuando seteo la app me modifica el estado local y se renderiza
     const [currentPage, setCurrentPage]=useState(1);//estado local,el usestate es 1 porque es donde arranca
@@ -31,9 +31,7 @@ export default function Home(){
         dispatch(getGenres())
     },[dispatch])
 
-    // useEffect(()=>{
-    //     dispatch(filterByGenre())
-    // },[dispatch])
+    
 
      function handleClick(e){
          e.preventDefault();
@@ -75,11 +73,11 @@ export default function Home(){
                 All Games
             </button>
             <div>
-                <label> Genres:</label>
+                <label> Choose a Game by Genre:</label>
                 <select name="filtergenres" defaultValue={"default"}
-                onChange={(e)=>handleFilterByGenres(e)}/>
-                <option value="default" name="default"></option>
-                <option value="all"></option>
+                onChange={(e)=>handleFilterByGenres(e)}>
+                {/* <option value="default">All Genres</option> */}
+                <option value="all">All Genres</option>
                 { 
                 genres?.map((genres) =>{
                     console.log(genres)
@@ -87,6 +85,8 @@ export default function Home(){
                         <option key={genres} value={genres}>{genres}</option>
                         )
                     })}
+                    </select>
+                    
                 <label>Choose by source of creation:</label>
                 <select onChange={handleFilterByCreation}>
                     <option value="All">All</option>
@@ -112,7 +112,7 @@ export default function Home(){
                        <Card 
                        name={elem.name}
                        background_image={elem.background_image}
-                       genre={elem.genre}
+                       genres={elem.genres}
                        rating={elem.rating}
                        id={elem.id}
                        key={elem.id}/>

@@ -93,48 +93,7 @@ router.get("/videogames", async (req, res, next) =>{
     });
 
 
-  //------------------Prueba plaforms
-  const getApiDataPlatforms=async()=>{
-    const apiUrlPlat1 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=1`);
-    const apiUrlPlat2 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=2`);
-    const apiUrlPlat3 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=3`);
-    const apiUrlPlat4 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=4`);
-    const apiUrlPlat5 = await axios.get(`https://api.rawg.io/api/games?key=1f144ad916834d1580997d3ba6108378&page=5`);
-
-    const multiApiPlat = [apiUrlPlat1, apiUrlPlat2, apiUrlPlat3, apiUrlPlat4, apiUrlPlatapiPlatforms5]
-    const apiPlatforms = [];
-
-    await Promise.all(multiApiPlat)
-        .then(response => {
-            response.forEach(response => apiPlatforms.push(
-                response.data.results.platforms?.map(plat => {
-                    const { platforms } = plat;
-                    console.log(response)
-                    return {
-                        
-                        platforms: platforms.map(plat => plat.platform.name),
-                        
-                    }
-                })
-
-            ))
-        })
-
-    return apiPlatforms;
-    
-};
-router.get("/platforms", async(req, res, next)=>{
-  try {
-  console.log(platformsResults)
-  platformsResults=apiGames.map(platforms=>platforms)
-  return platformsResults
-    
-  } catch (err) {
-    console.log(err)
-    
-  }
-})
-     //---------------------------------------------------------------
+  
 
     router.get("/videogame/:id", async(req, res, next)=>{
     
@@ -157,7 +116,7 @@ router.get("/platforms", async(req, res, next)=>{
                 return res.json(gamesDb);
           
               } else {
-                const getGamesApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=1f144ad916834d1580997d3ba6108378`);
+                const getGamesApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
                 const apiGames = await getGamesApi.data
                 if (apiGames.name) {
                   const { name, background_image, genres, description, released, rating, platforms } = apiGames

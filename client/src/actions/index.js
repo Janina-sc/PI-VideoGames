@@ -87,7 +87,7 @@ export function filterByCreation(payload){
    }
     export function filterByGenre(payload){
         return {
-            type: "FILTER_BY_GENRE", 
+            type: "FILTER_BY_GENRES", 
             payload
         }
 
@@ -98,9 +98,7 @@ export function filterByCreation(payload){
            try {
                
                const response= await axios.get("http://localhost:3001/videogames");
-               
-               //const responseMaped=  response.map(elem=>elem.platforms)
-               return dispatch({
+                return dispatch({
                    type: "GET_PLATFORMS",
                    payload:response.data
                })
