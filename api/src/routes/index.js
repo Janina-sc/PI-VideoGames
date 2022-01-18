@@ -185,10 +185,11 @@ router.get("/videogames", async (req, res, next) =>{
         description, 
         released, 
         rating,
+        
         platforms, 
         createdInDb,
         })
-         
+         console.log(gameCreated)
         const genresDb= await Genre.findAll({ //la busca en el modelo Genre
         where:{
             name:genre

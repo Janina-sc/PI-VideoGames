@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import {getDetail} from '../actions/index';
+import {getDetail, getGenres, getPlatforms} from '../actions/index';
 // import styles from './Detail.css'
 
 export default function GameDetail(){
@@ -18,7 +18,12 @@ export default function GameDetail(){
     useEffect(()=>{
         dispatch(getDetail(id))
     },[dispatch, id])
-    
+    useEffect(()=>{
+        dispatch(getGenres())
+    }, [dispatch])
+    useEffect(()=>{
+        dispatch(getPlatforms)
+    }, [dispatch])
     
     const imageByDefault= "https://www.semana.com/tecnologia/articulo/por-que-los-videojuegos-son-hoy-la-mayor-industria-del-entretenimiento/301806/"
 
@@ -35,9 +40,9 @@ export default function GameDetail(){
                   <h3>Genres: {detailedGame.genres}</h3> 
                   <p>Description: {detailedGame.description }</p>
                  <p>Released at {detailedGame.released }</p>
-                 <p>Rating {detailedGame.rating }</p>
+                 <p>Rating: {detailedGame.rating }</p>
                  <h3>Platforms: {detailedGame.platforms}</h3>
-                 <p>ID{detailedGame.id}</p>
+                 <p>ID: {detailedGame.id}</p>
                  </div> : <p>Loading...</p>
         }  
          <div>

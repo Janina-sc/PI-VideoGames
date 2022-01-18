@@ -70,7 +70,7 @@ export default function Home(){
                 <div className="image-home"></div>
             <Link to='/createvideogame' className="link-create-game">Create videogame</Link>
             <h1>We love Playing!</h1>
-            <button classname="boton"onClick={e=>{handleClick(e)}}>
+            <button className="boton"onClick={e=>{handleClick(e)}}>
                 All Games
             </button>
             <div className="container-ordenamientos">

@@ -32,7 +32,7 @@ function validate(input){
 export default function CreateGame(){
     const dispatch=useDispatch();
     const genres= useSelector((state)=> state.genres)
-    // console.log(genres)
+    console.log(genres)
     const platforms=useSelector(state => state.platforms)//traigo el estado global
      //console.log(platforms)
     const [errors, setErrors]=useState({});
@@ -229,13 +229,13 @@ export default function CreateGame(){
                 <option value="all"></option>
                     {genres?.map((genres)=>(
                         <option key={genres.id}
-                        value={genres}>{genres + ", "}</option>
+                        value={genres.id}>{genres + ", "}</option>
                     ))}
                     {errors.genres&&(
                         <p>{errors.genres}</p>
                     )}
 
-           <ul><li>{input.genres + ", "}</li></ul>
+           <li>{input.genres + ", "}</li>
                 </select>
             </div>
             <div>
@@ -260,7 +260,7 @@ export default function CreateGame(){
                     )}
                     
 
-                <ul><li>{input.platforms.map(elem=>elem + ", ")}</li></ul>
+                <li>{input.platforms.map(elem=>elem + ", ")}</li>
                 </select>
                    </div>
             <div>
