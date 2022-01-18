@@ -32,9 +32,9 @@ function validate(input){
 export default function CreateGame(){
     const dispatch=useDispatch();
     const genres= useSelector((state)=> state.genres)
-    console.log(genres)
+    // console.log(genres)
     const platforms=useSelector(state => state.platforms)//traigo el estado global
-    console.log(platforms)
+     //console.log(platforms)
     const [errors, setErrors]=useState({});
     const [input, setInput]=useState({
         name:"",
@@ -225,16 +225,18 @@ export default function CreateGame(){
                 <label>Genres:</label>
                 <select name="genres" multiple required
                 onChange={(e)=>handleSelectGenres(e)}>
-                    {genres?.map(genres=>(
+                    <option value="default" name="default"></option>
+                <option value="all"></option>
+                    {genres?.map((genres)=>(
                         <option key={genres.id}
-                        value={genres}>{genres}</option>
+                        value={genres}>{genres + ", "}</option>
                     ))}
                     {errors.genres&&(
                         <p>{errors.genres}</p>
                     )}
 
+           <ul><li>{input.genres + ", "}</li></ul>
                 </select>
-                <ul><li>{input.genres.map(elem=>elem.name + ", ")}</li></ul>
             </div>
             <div>
             {input.genres.map(elem=>
@@ -249,8 +251,8 @@ export default function CreateGame(){
                 onChange={(e)=>handleSelectPlatforms(e)}>
                     <option value="default" name="default"></option>
                 <option value="all"></option>
-                    {platforms?.map(platforms=>(
-                        <option key={platforms.name}
+                    {platforms?.map((platforms, i)=>(
+                        <option key={i}
                         value={platforms}>{platforms + ", "}</option>
                     ))}
                     {errors.platforms && (
@@ -258,8 +260,8 @@ export default function CreateGame(){
                     )}
                     
 
-                </select>
                 <ul><li>{input.platforms.map(elem=>elem + ", ")}</li></ul>
+                </select>
                    </div>
             <div>
             {input.platforms.map(elem=>

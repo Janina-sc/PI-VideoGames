@@ -73,7 +73,7 @@ function rootReducer(state=initialState, action){
                             return {
                                 
                                 ...state,
-                                genres:action.payload.map(genre=>genre),
+                                genres:action.payload,
                             }
                             
                             
@@ -86,11 +86,11 @@ function rootReducer(state=initialState, action){
                                  
                                 }
                                 case "GET_PLATFORMS":
-                                    
-                                    return {
-
-                                        ...state,
-                                        platforms:action.payload.map(elem=>elem.platforms).flat()
+                                    const platf = action.payload.map(e => e.platforms).flat()
+                                    const platformsMaped = [...new Set(platf)]
+          return {
+            ...state,
+            platforms: platformsMaped,
                                         
                                     }
                                     

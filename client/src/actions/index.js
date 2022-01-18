@@ -120,11 +120,11 @@ export function filterByCreation(payload){
     export function newGame(payload){
         return async function(dispatch){
             try {
-                const response= await axios.post("http://localhost:3001//videogame", payload)
+                const response= await axios.post("http://localhost:3001/videogame", payload)
                 
                 return dispatch({
                     type: "CREATE_GAME",
-                    payload: response.data
+                    payload: response
                 })
             } catch (err) {
                 console.log(err)

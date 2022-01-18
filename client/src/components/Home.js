@@ -5,6 +5,7 @@ import {getGames, filterByCreation, sortByName, sortByRating, getGenres, filterB
 import {Link} from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
+// import styles from "./Home.css"
 
 export default function Home(){
     const  dispatch = useDispatch();
@@ -65,14 +66,14 @@ export default function Home(){
      }
 
      return (
-         <div>
-                
-            <Link to='/createvideogame'>Create videogame</Link>
+         <div className="home">
+                <div className="image-home"></div>
+            <Link to='/createvideogame' className="link-create-game">Create videogame</Link>
             <h1>We love Playing!</h1>
-            <button onClick={e=>{handleClick(e)}}>
+            <button classname="boton"onClick={e=>{handleClick(e)}}>
                 All Games
             </button>
-            <div>
+            <div className="container-ordenamientos">
                 <label> Choose a Game by Genre:</label>
                 <select name="filtergenres" defaultValue={"default"}
                 onChange={(e)=>handleFilterByGenres(e)}>
@@ -98,6 +99,7 @@ export default function Home(){
                 allGames={allGames.length}
                 paginado={paginado}
                 />
+                <div className="container-filtros">
                 <select onChange={handleSortByName}>
                     <option value = "asc" >A-Z Videogames</option>
                     <option value = "desc" >Z-A Videogames</option>
@@ -106,11 +108,12 @@ export default function Home(){
                     <option value="asc">Increasing Rating</option>
                     <option value="desc">Decreasing Rating</option>
                 </select>
+                </div>
                 {
                    currentGames?.map(elem=>{
                        return (
                            
-                       <Card 
+                       <Card className="card-home"
 
                        name={elem.name}
                        background_image={elem.background_image}

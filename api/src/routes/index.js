@@ -116,7 +116,7 @@ router.get("/videogames", async (req, res, next) =>{
                 return res.json(gamesDb);
           
               } else {
-                const getGamesApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+                const getGamesApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=1f144ad916834d1580997d3ba6108378`);
                 const apiGames = await getGamesApi.data
                 if (apiGames.name) {
                   const { name, background_image, genres, description, released, rating, platforms } = apiGames
@@ -147,7 +147,7 @@ router.get("/videogames", async (req, res, next) =>{
             router.get("/genres", (req, res, next)=>{
               
               try {
-                  axios.get(` https://api.rawg.io/api/genres?key=${API_KEY}`)
+                  axios.get(` https://api.rawg.io/api/genres?key=1f144ad916834d1580997d3ba6108378`)
                     .then((response) => {
               
                       const genre = response.data;

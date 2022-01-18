@@ -1,0 +1,18 @@
+.about{
+    background-image: url("./assets/Foto\ Jani3.jpg");
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    margin-top: 25px;
+    margin-left:100px;
+    margin-right: 100px;
+    padding: 20px;
+
+    border: 3px;
+    border-style:  solid;
+    border-color: rgb(102, 84, 57);
+    border-radius: 4px;
+    }
+    .presentacion{
+        display: grid;
+    }
