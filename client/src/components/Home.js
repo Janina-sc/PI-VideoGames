@@ -11,7 +11,7 @@ export default function Home(){
     const  dispatch = useDispatch();
     const allGames= useSelector((state)=>state.videogames)
     const genres= useSelector((state)=>state.genres)//equivale al mapStateToProps
-    //console.log(genres)
+    console.log(genres)
 
     const [orden, setOrden]=useState("")//estado local vacío,cuando seteo la app me modifica el estado local y se renderiza
     const [currentPage, setCurrentPage]=useState(1);//estado local,el usestate es 1 porque es donde arranca

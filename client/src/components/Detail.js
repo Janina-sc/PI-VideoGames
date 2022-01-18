@@ -13,6 +13,7 @@ export default function GameDetail(){
     const detailedGame=useSelector((state)=>state.detail)
     console.log(detailedGame)
     const genres=useSelector(state=>state.genres)
+    console.log(genres)
     const platforms=useSelector(state=>state.platforms)
 
     useEffect(()=>{
@@ -27,7 +28,7 @@ export default function GameDetail(){
     
     const imageByDefault= "https://www.semana.com/tecnologia/articulo/por-que-los-videojuegos-son-hoy-la-mayor-industria-del-entretenimiento/301806/"
 
-
+    
     return (
         <div>
             
@@ -39,7 +40,7 @@ export default function GameDetail(){
                  
                   <h3>Genres: {detailedGame.genres}</h3> 
                   <p>Description: {detailedGame.description }</p>
-                 <p>Released at {detailedGame.released }</p>
+                 <p>Released at :{detailedGame.released }</p>
                  <p>Rating: {detailedGame.rating }</p>
                  <h3>Platforms: {detailedGame.platforms}</h3>
                  <p>ID: {detailedGame.id}</p>

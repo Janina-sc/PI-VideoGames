@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // import styles from "./Card.css"
 
 export default function GameCard({name, background_image, genres, rating, id}){
-    //console.log(genres)
+    console.log(genres)
     
     if (typeof genres[0] !=="string") {
         genres = genres.map((elem) => elem.name);

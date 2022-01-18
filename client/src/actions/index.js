@@ -124,7 +124,7 @@ export function filterByCreation(payload){
                 
                 return dispatch({
                     type: "CREATE_GAME",
-                    payload: response
+                    payload: response.data
                 })
             } catch (err) {
                 console.log(err)

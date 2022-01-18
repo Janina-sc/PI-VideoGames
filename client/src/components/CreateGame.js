@@ -6,18 +6,27 @@ import {newGame, getGenres, getPlatforms } from '../actions';
 
 function validate(input){
     let errors={};//estado local
-    if((!input.name) &&(input.name.length<3 || input.name.length>80)){//input es estado local
+    if((!input.name) ||(input.name !=="string") ){//input es estado local
+        errors.name="The game must have a name"
+        
+    }
+    else if(input.name.length<3 && input.name.length>80){
         errors.name="The name must contain between 3 and 80 characters"
     }
-    else if((!input.description) && (input.description.length<200 && input.description.lenght>500)){
-        errors.description="The description must contain between 200 and 500 characters."
-
+    else if(!input.description) {
+        errors.description="You must include a description of the game created"
+    }
+    else if(input.description.length<50 && input.description.length>200){
+    errors.description="The description must contain between 200 and 500 characters"
     }
     else if(!input.released) {
-        errors.released="Must declare a released date"
+        errors.released="You must declare a released date"
     }
-    else if((!input.rating)&& (input.rating <0 && input.rating>5)){
-        errors.rating="Must have a value between 0 and 10"
+    else if(!input.rating){
+        errors.rating="You must declare a rating value"
+    } 
+    else if(input.rating <0 && input.rating>5){
+        errors.rating="Must have a value between 0 and 5"
     }
     else if(!input.platforms){
         errors.platforms="Must add at least one platform"
@@ -25,8 +34,6 @@ function validate(input){
     else if(!input.genres){
         errors.genres="Must add at least one genre"
     }
-    
-
     return errors;
 }
 export default function CreateGame(){
@@ -34,7 +41,7 @@ export default function CreateGame(){
     const genres= useSelector((state)=> state.genres)
     console.log(genres)
     const platforms=useSelector(state => state.platforms)//traigo el estado global
-     //console.log(platforms)
+     console.log(platforms)
     const [errors, setErrors]=useState({});
     const [input, setInput]=useState({
         name:"",
@@ -227,20 +234,22 @@ export default function CreateGame(){
                 onChange={(e)=>handleSelectGenres(e)}>
                     <option value="default" name="default"></option>
                 <option value="all"></option>
-                    {genres?.map((genres)=>(
-                        <option key={genres.id}
+                    {
+                    genres?.map((genres)=>(
+                        <option 
+                         key={genres.id}
                         value={genres.id}>{genres + ", "}</option>
                     ))}
                     {errors.genres&&(
                         <p>{errors.genres}</p>
                     )}
 
-           <li>{input.genres + ", "}</li>
+           <li>{input.genres.name + ", "}</li>
                 </select>
             </div>
             <div>
             {input.genres.map(elem=>
-                <div>
+                <div key={genres.id}> 
                     <p>{elem}</p>
                     <button type="button" onClick={()=> handleDeleteGenres(elem)}>X</button>
                     </div>)}
@@ -251,8 +260,9 @@ export default function CreateGame(){
                 onChange={(e)=>handleSelectPlatforms(e)}>
                     <option value="default" name="default"></option>
                 <option value="all"></option>
-                    {platforms?.map((platforms, i)=>(
-                        <option key={i}
+                    {platforms?.map((platforms)=>(
+                        <option 
+                         key={platforms.name}
                         value={platforms}>{platforms + ", "}</option>
                     ))}
                     {errors.platforms && (
@@ -263,7 +273,7 @@ export default function CreateGame(){
                 <li>{input.platforms.map(elem=>elem + ", ")}</li>
                 </select>
                    </div>
-            <div>
+            <div key={platforms.name}>
             {input.platforms.map(elem=>
                 <div>
                     <p>{elem}</p>

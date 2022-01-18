@@ -70,6 +70,7 @@ function rootReducer(state=initialState, action){
                             videogames:action.payload//videogames es  el arreglo que va a filtrar
                         }
                         case "GET_GENRES":
+                            
                             return {
                                 
                                 ...state,
@@ -86,11 +87,11 @@ function rootReducer(state=initialState, action){
                                  
                                 }
                                 case "GET_PLATFORMS":
-                                    const platf = action.payload.map(e => e.platforms).flat()
+                                    const platf = action.payload.map(elem => elem.platforms).flat()
                                     const platformsMaped = [...new Set(platf)]
-          return {
-            ...state,
-            platforms: platformsMaped,
+                                  return {
+                                       ...state,
+                                        platforms: platformsMaped,
                                         
                                     }
                                     
