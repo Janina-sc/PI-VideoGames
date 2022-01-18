@@ -118,14 +118,16 @@ export function filterByCreation(payload){
 
 
     export function newGame(payload){
-        return async function(dispatch){
+        return async function(){
             try {
+                console.log(payload,"jaja")
                 const response= await axios.post("http://localhost:3001/videogame", payload);
-                
-                return dispatch({
-                    type: "CREATE_GAME",
-                    payload: response
-                })
+                console.log(response)
+                return response
+                // return dispatch({
+                //     type: "CREATE_GAME",
+                //     payload: response
+                // })
             } catch (err) {
                 console.log(err)
                 
@@ -133,6 +135,7 @@ export function filterByCreation(payload){
         }
     }
     export function getDetail(id){
+        console.log(id)
         return async function(dispatch){
             try {
                 var json=await axios.get("http://localhost:3001/videogame/" + id)

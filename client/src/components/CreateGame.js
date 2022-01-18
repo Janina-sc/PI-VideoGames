@@ -39,13 +39,12 @@ function validate(input){
 export default function CreateGame(){
     const dispatch=useDispatch();
     const genres= useSelector((state)=> state.genres)
-    console.log(genres)
+    // console.log(genres)
     const platforms=useSelector(state => state.platforms)//traigo el estado global
-     console.log(platforms)
+    //  console.log(platforms)
     const [errors, setErrors]=useState({});
     const [input, setInput]=useState({
         name:"",
-        background_image:"",
         description:"",
         released:"",
         rating:"",
@@ -59,11 +58,11 @@ export default function CreateGame(){
             ...input,
             [e.target.value]:e.target.value
         }))
+        console.log(input, "input")
         dispatch(newGame(input))
         alert("Game successfully created")
         setInput({
             name:"",
-            background_image:"",
             description:"",
             released:"",
             rating:"",
@@ -76,7 +75,6 @@ export default function CreateGame(){
     function clearForm(){
         setInput({
             name:"",
-            background_image:"",
             description:"",
             released:"",
             rating:"",
@@ -90,7 +88,7 @@ export default function CreateGame(){
         e.preventDefault()
         setInput({
             ...input,
-            genres:[...input.genres.concat(e.target.value)]//concatena en el array lo que vaya guardando
+            genres:[...input.genres, e.target.value]//concatena en el array lo que vaya guardando
         })
         setErrors(
             validate({
@@ -173,16 +171,7 @@ export default function CreateGame(){
                     <p>{errors.name}</p>
                 )}
             </div>
-            <div>
-                <label>Image:</label>
-                <input key="background_image"
-                name="background_image"
-                type="text"
-                placeholder="Image"
-                value={input.background_image}
-                onChange={handleChange}>
-                </input>
-            </div>
+            
             <div>
                 <label>Description:</label>
                 <input
@@ -229,7 +218,7 @@ export default function CreateGame(){
                 )}
             </div>
             <div>
-                <label>Genres:</label>
+            <label>Genres:</label>
                 <select name="genres" multiple required
                 onChange={(e)=>handleSelectGenres(e)}>
                     <option value="default" name="default"></option>
@@ -238,13 +227,13 @@ export default function CreateGame(){
                     genres?.map((genres)=>(
                         <option 
                          key={genres.id}
-                        value={genres.id}>{genres + ", "}</option>
+                        value={genres}>{genres + ", "}</option>
                     ))}
                     {errors.genres&&(
                         <p>{errors.genres}</p>
                     )}
 
-           <li>{input.genres.name + ", "}</li>
+           <li>{input.genres.name + ", " }</li>
                 </select>
             </div>
             <div>

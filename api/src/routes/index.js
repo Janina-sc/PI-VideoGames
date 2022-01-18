@@ -126,8 +126,8 @@ router.get("/videogames", async (req, res, next) =>{
                   released,
                   background_image,
                   rating,
-                  platforms:platforms.map(elem=>elem.platform.name).join(", "),
-                  genres:genres.map(elem=>elem.name).join(", "),
+                  platforms:platforms.map(elem=>elem.platform.name).join(","),
+                  genres:genres.map(elem=>elem.name).join(","),
                   id
                 }
                 res.status(200).json(gameDetails);
@@ -294,7 +294,14 @@ router.get("/videogames", async (req, res, next) =>{
 
         router.post("/videogame", async(req, res, next)=>{
          try {
-        const  {  name, background_image,description, released, rating, genre, platforms,  createdInDb} = req.body;
+        const  {  name, background_image,description, released, rating, genres, platforms,  createdInDb} = req.body;
+        // console.log(name, "name")
+        // console.log(description, "description")
+        // console.log(released,"released")
+        // console.log(rating)
+        // console.log(genres, "genero")
+        // console.log(platforms)
+        // console.log(createdInDb)
         const gameCreated= await Videogame.create({
         name,
         background_image,
@@ -307,14 +314,14 @@ router.get("/videogames", async (req, res, next) =>{
          console.log(gameCreated)
         const genresDb= await Genre.findAll({ //la busca en el modelo Genre
         where:{
-            name:genre
+            name:genres
              }
         })
-        gameCreated.addGenre(genresDb)
+        genresDb && gameCreated.addGenre(genresDb)
         return res.send("Game successfully created")
                  
        } catch (err) {
-        return next ( err)
+        res.status(400).json(err)
              }
          }) 
         

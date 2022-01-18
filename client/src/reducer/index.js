@@ -106,6 +106,11 @@ function rootReducer(state=initialState, action){
                                 
                             }
                             case "GET_DETAIL":
+                                
+                                //  if (typeof id !== "string") id.toString();
+
+                                  
+                                //   if (id.includes("-")) {
                                 return {
                                     ...state,
                                     detail:action.payload

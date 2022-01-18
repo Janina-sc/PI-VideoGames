@@ -26,8 +26,14 @@ export default function GameDetail(){
         dispatch(getPlatforms)
     }, [dispatch])
     
-    const imageByDefault= "https://www.semana.com/tecnologia/articulo/por-que-los-videojuegos-son-hoy-la-mayor-industria-del-entretenimiento/301806/"
+    
 
+    // <if ( detailedGame.id !=="number") {
+    //     genres = genres;
+    //   } else {
+    //     genres = genres.map((genres) => genres.name);
+        
+    //   }
     
     return (
         <div>
@@ -36,15 +42,15 @@ export default function GameDetail(){
             detailedGame ?
             <div>
                 <h1>Game {detailedGame.name}</h1>
-                <img src={detailedGame.background_image? detailedGame.background_image : imageByDefault} alt="game" width="200px" height="250px" />
+                <img src={detailedGame.background_image} alt="game" width="200px" height="250px" />
                  
-                  <h3>Genres: {detailedGame.genres}</h3> 
+                  <h3>Genres: {detailedGame.genres && detailedGame.genres.map(genres=>genres.name).join(", ")}</h3>
                   <p>Description: {detailedGame.description }</p>
                  <p>Released at :{detailedGame.released }</p>
                  <p>Rating: {detailedGame.rating }</p>
                  <h3>Platforms: {detailedGame.platforms}</h3>
                  <p>ID: {detailedGame.id}</p>
-                 </div> : <p>Loading...</p>
+                 </div> : <p>Loading...</p> 
         }  
          <div>
             <Link to= "/home">
