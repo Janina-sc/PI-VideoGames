@@ -3,20 +3,17 @@
     border-width: 3px;
     border-color: rgb(104, 104, 104);
     border-radius: 3px;
-    display:flex;
-    flex-direction:row;
-    /* position: relative; */
-    justify-content: space-around;
-    align-items: center;
-    width: 25%;  
-    height: 20%;
-    color: grey;
-    padding: 10px;
+     /* display:inline-flex; */
+    
+     /* position:relative; 
+    justify-content: center;
+    align-items: center; */ 
+    
     background-color: rgb(165, 160, 154);
-    margin-top: 650px;
-    bottom: 90px;
+    /* margin-top: 40px;
+    bottom: 30px;
     margin-left: 10%;
-    margin-right: 10%;
+    margin-right: 10%; */
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

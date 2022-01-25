@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import {getDetail, getGenres, getPlatforms} from '../actions/index';
-// import styles from './Detail.css'
+ import styles from './Detail.css'
 
 export default function GameDetail(){
 
@@ -18,45 +18,48 @@ export default function GameDetail(){
 
     useEffect(()=>{
         dispatch(getDetail(id))
-    },[dispatch, id])
+    },[id, dispatch])
     useEffect(()=>{
         dispatch(getGenres())
     }, [dispatch])
     useEffect(()=>{
         dispatch(getPlatforms)
     }, [dispatch])
-    
-    
 
-    // <if ( detailedGame.id !=="number") {
-    //     genres = genres;
-    //   } else {
-    //     genres = genres.map((genres) => genres.name);
-        
-    //   }
+    
+//     if( (detailedGame.id).length >7){
+//       genres = genres.map((elem) => elem.name);
+// } else {
+//     genres = genres;
+// }
+  
     
     return (
-        <div>
+        <div className="container">
             
-        {
+
+           
+         {
             detailedGame ?
-            <div>
-                <h1>Game {detailedGame.name}</h1>
-                <img src={detailedGame.background_image} alt="game" width="200px" height="250px" />
+            <div className="game" key={detailedGame.id}>
+                <h1>Game name: {detailedGame.name}</h1>
+                 <img src={detailedGame.background_image} alt="game" width="200px" height="250px" /> 
                  
-                  <h3>Genres: {detailedGame.genres && detailedGame.genres.map(genres=>genres.name).join(", ")}</h3>
+                     {/* <h4>Genres: { detailedGame.genres && detailedGame.genres.map(genres=>genres.name).join(", ")}</h4>    */}
+                     <h4>Genres: { detailedGame.genres}</h4>      
+
                   <p>Description: {detailedGame.description }</p>
-                 <p>Released at :{detailedGame.released }</p>
+                 <p>Released at : {detailedGame.released }</p>
                  <p>Rating: {detailedGame.rating }</p>
-                 <h3>Platforms: {detailedGame.platforms}</h3>
-                 <p>ID: {detailedGame.id}</p>
+                 <h4>Platforms: {detailedGame.platforms}</h4>
+                 <p>ID: {detailedGame.id}</p>  
                  </div> : <p>Loading...</p> 
         }  
-         <div>
+         <div className="detail-link">
             <Link to= "/home">
                 <button> Go back</button>
             </Link> 
-         </div>
+         </div> 
 
         </div>
        

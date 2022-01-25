@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {getGames, filterByCreation, sortByName, sortByRating, getGenres, filterByGenre} from "../actions";
 import {Link} from "react-router-dom";
 import Card from "./Card";
-import Paginado from "./Paginado";
-// import styles from "./Home.css"
+import Paginado from "./Paginado"; 
+import styles from "./Home.css"
 
 export default function Home(){
     const  dispatch = useDispatch();

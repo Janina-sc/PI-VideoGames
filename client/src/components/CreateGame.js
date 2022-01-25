@@ -1,23 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from "react";
 import {newGame, getGenres, getPlatforms } from '../actions';
+import styles from './CreateGame.css'
 
 function validate(input){
     let errors={};//estado local
-    if((!input.name) ||(input.name !=="string") ){//input es estado local
+    if(!input.name ){//input es estado local
         errors.name="The game must have a name"
         
     }
-    else if(input.name.length<3 && input.name.length>80){
-        errors.name="The name must contain between 3 and 80 characters"
-    }
-    else if(!input.description) {
-        errors.description="You must include a description of the game created"
-    }
-    else if(input.description.length<50 && input.description.length>200){
-    errors.description="The description must contain between 200 and 500 characters"
+    else if(!input.description){
+    errors.description="Must add a description"
     }
     else if(!input.released) {
         errors.released="You must declare a released date"
@@ -25,9 +20,7 @@ function validate(input){
     else if(!input.rating){
         errors.rating="You must declare a rating value"
     } 
-    else if(input.rating <0 && input.rating>5){
-        errors.rating="Must have a value between 0 and 5"
-    }
+    
     else if(!input.platforms){
         errors.platforms="Must add at least one platform"
     }
@@ -151,11 +144,13 @@ export default function CreateGame(){
            
             
             return (
-                <div>
-        
+                <div className="container">
+        <div className="link">
+        <Link to= '/home'><button>Go Home</button></Link>
+        </div>
         <h1> Create a new Game</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             <div>
                 <label> Name:</label>
                 <input
@@ -207,7 +202,7 @@ export default function CreateGame(){
                 <input
                 key="rating"
                 name="rating"
-                type="number"
+                type="number" 
                 placeholder="..."
                 value={input.rating}
                 required
@@ -274,11 +269,11 @@ export default function CreateGame(){
                             !(errors.name && errors.description && errors.released 
                                 && errors.rating) &&
                         
-                     <button type= "submit">Submit</button> 
+                     <button className="submit" type= "submit">Submit</button> 
                             }
                     </div>
                     <div>
-       <button
+       <button className="reset"
               type="reset"
               value = "limpiarform"
               onClick = {clearForm}>
@@ -290,9 +285,7 @@ export default function CreateGame(){
             
 
         </form>
-        <div>
-        <NavLink to= '/home'><button>Go Home</button></NavLink>
-        </div>
+        
     </div>
 )
 }

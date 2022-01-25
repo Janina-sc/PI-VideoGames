@@ -36,6 +36,10 @@ module.exports = (sequelize) => {
         type:DataTypes.ARRAY(DataTypes.TEXT), //ver: había puesto JSON después string
         allowNull:false,
       },
+      rating_count:{
+        type:DataTypes.INTEGER,
+
+      },
       createdInDb:{
         type:DataTypes.BOOLEAN,
         allowNull:false,
